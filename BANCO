@@ -1,0 +1,106 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <locale.h>
+
+
+// LEONARDO E YURI
+
+struct ContaBancaria
+{
+    char titular[100];
+    char tipoDeConta[100];
+    float saldo;
+};
+
+struct ContaBancaria criarConta()
+{
+     fflush (stdin);
+    struct ContaBancaria conta;
+
+    printf("\n--------------Cadastro--------------\n");
+    printf("Digite o nome do titular:\n");
+    scanf("%s", &conta.titular);
+    printf("Informe o tipo de conta entre corrente ou poupança\n");
+    scanf("%s", &conta.tipoDeConta);
+    printf("Informe o saldo inicial na sua conta:\n");
+    scanf("%f", &conta.saldo);
+    system ("cls");
+
+    return conta;
+}
+
+void depositar(struct ContaBancaria *conta)
+{
+     fflush (stdin);
+    float deposito;
+
+    printf("Quanto deseja depositar?\n");
+    scanf("%f", &deposito);
+    conta->saldo = conta->saldo + deposito;
+    system ("cls");
+    printf("Deposito realizado com sucesso\n");
+}
+
+void sacar(struct ContaBancaria *conta)
+{
+     fflush (stdin);
+    float sacar;
+
+    printf("Quanto deseja sacar?\n");
+    scanf("%f", &sacar);
+    conta->saldo = conta->saldo - sacar;
+    system ("cls");
+    printf("Saque realizado com sucesso\n");
+}
+
+void extrato(struct ContaBancaria *conta)
+{
+     fflush (stdin);
+     system ("cls");
+     printf ("-----Dados do usuario-----\n");
+    printf("\nNome do titular:%s\n", conta->titular);
+    printf("Tipo de conta:%s\n", conta->tipoDeConta);
+    printf("Dados da conta:%.2f\n", conta->saldo);
+}
+
+
+
+int main()
+{
+    setlocale(LC_ALL, "portuguese");
+    int codigo;
+
+    struct ContaBancaria minhaconta = criarConta();
+
+    do
+    {
+        
+        
+    fflush (stdin);
+    int codigo;
+
+    printf("\n-----Operações diponiveis-----\n1 - Depositar\n2 - Sacar\n3 - Dados da conta\n0 - Encerrar operação\n");
+    scanf("%d", &codigo);
+
+    switch (codigo)
+    {
+    case 1:
+        depositar(&minhaconta);
+        break;
+    case 2:
+        sacar(&minhaconta);
+        break;
+    case 3:
+        extrato(&minhaconta);
+        break;
+    case 0:
+    system ("cls");
+    printf ("Operação encerrada!");
+    abort();
+        break;
+    }
+    } while (codigo != 0);
+
+    return 0;
+}
